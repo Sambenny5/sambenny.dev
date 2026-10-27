@@ -376,9 +376,8 @@ h1,h2,h3{text-wrap:balance;letter-spacing:-.03em}
   .dock a:hover{transform:none}
   .app:hover .icon{transform:none}
 }
-@media (prefers-reduced-motion:reduce){.name-in{animation:none}.walker,.fi{opacity:0}.grad{opacity:1!important}}
 
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
@@ -695,7 +694,8 @@ h1,h2,h3{text-wrap:balance;letter-spacing:-.03em}
 
 <script>
 (() => {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // animations are the point of this page, so they always run (many phones have Reduce Motion switched on)
+  const reduce = false;
   const root = document.documentElement;
   const tok = n => getComputedStyle(root).getPropertyValue(n).trim();
   const isDark = () => {
@@ -914,7 +914,7 @@ h1,h2,h3{text-wrap:balance;letter-spacing:-.03em}
   /* ---------- intro: viewfinder focuses, shutter fires, aperture opens ---------- */
   (function intro(){
     const el=$('intro'); let seen=false;
-    try{ seen=sessionStorage.getItem('sb-intro-v2')==='1'; sessionStorage.setItem('sb-intro-v2','1'); }catch(e){}
+    try{ seen=sessionStorage.getItem('sb-intro-v3')==='1'; sessionStorage.setItem('sb-intro-v3','1'); }catch(e){}
     if(reduce || seen){ el.classList.add('gone'); return; }
     const c=$('introfx'), x=c.getContext('2d'), D=Math.min(devicePixelRatio||1,2);
     let W=innerWidth, H=innerHeight; c.width=W*D; c.height=H*D; x.setTransform(D,0,0,D,0,0);
